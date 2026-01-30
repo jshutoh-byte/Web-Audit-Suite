@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Audit Suite v2.3.4</title>
+    <style>
+        body { font-family: "Meiryo", sans-serif; background-color: #f4f7f6; color: #2c3e50; text-align: center; padding: 20px; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: inline-block; max-width: 600px; width: 95%; }
+        h1 { color: #1a2a6c; border-bottom: 2px solid #b21f1f; padding-bottom: 10px; margin-bottom: 30px; }
+        .section { margin-bottom: 25px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; text-align: left; }
+        .section-title { font-size: 14px; font-weight: bold; color: #1a2a6c; margin-bottom: 12px; display: block; border-left: 4px solid #b21f1f; padding-left: 10px; }
+        .drag-area { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .btn-drag { 
+            display: inline-block; padding: 12px 18px; font-size: 12px; font-weight: bold; color: white; 
+            text-decoration: none; border-radius: 4px; cursor: grab; background: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px dashed rgba(255,255,255,0.3); transition: 0.2s;
+        }
+        .btn-drag:hover { transform: translateY(-2px); }
+        .btn-audit { background: #0073aa; } /* 客観的な青 */
+        .btn-judge { background: #b21f1f; } /* 厳格な赤 */
+        .btn-gallery { background: #f39c12; }
+        .footer { font-size: 10px; color: #bdc3c7; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Web Audit Suite</h1>
+
+    <div class="section">
+        <span class="section-title">調査用ブックマークレット</span>
+        <div class="drag-area">
+            <a class="btn-drag btn-audit" href="javascript:(function(){const t=[];const h=document.documentElement.innerHTML;if(h.includes('wp-content'))t.push('WordPress');if(window.jQuery)t.push('jQuery '+jQuery.fn.jquery);const p='あなたは専門的なWeb監査官です。以下のデータを分析し、Web標準、保守性、SEOの観点から「サイトの健全性」を客観的に採点し、論理的に指摘してください。\\n・技術: '+t.join(', ')+'\\n・画像数: '+document.images.length+'枚\\n・H1タグ: '+(document.querySelector('h1')?document.querySelector('h1').innerText:'なし');const e=document.createElement('textarea');e.value=p;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('【監査プロンプト】コピー完了');})();">
+                🔍 構造監査 (Audit)
+            </a>
+            <a class="btn-drag btn-judge" href="javascript:(function(){const t=[];const h=document.documentElement.innerHTML;if(h.includes('wp-content'))t.push('WordPress');if(window.jQuery)t.push('jQuery '+jQuery.fn.jquery);const p='あなたはWebサイトの品質鑑定士です。以下の証拠データに基づき、このサイトを構築した「制作会社の技術力」を100点満点で採点し、改善すべきポイントを皮肉を交えて厳しく講評してください。\\n・技術: '+t.join(', ')+'\\n・画像数: '+document.images.length+'枚\\n・H1タグ: '+(document.querySelector('h1')?document.querySelector('h1').innerText:'なし')+'\\n・構造: '+(h.includes('table')?'スライス画像レイアウトによる非セマンティックな設計を検知':'不明');const e=document.createElement('textarea');e.value=p;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('【業者スキル診断】プロンプトをコピーしました');})();">
+                💀 スキル診断 (Judge)
+            </a>
+            <a class="btn-drag btn-gallery" href="javascript:(function(){var imgs=Array.from(document.images).map(function(i){return i.src});var unique=Array.from(new Set(imgs));var win=window.open();var html='<html><body style=\'background:#001a4d;padding:20px;\'><h1 style=\'color:#fff;font-family:sans-serif;\'>Asset Inspector</h1><div style=\'display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;\'>';unique.forEach(function(src){html+='<div style=\'background:#fff;padding:5px;\'><img src=\''+src+'\' style=\'width:100%;\'></div>'});html+='</div></body></html>';win.document.write(html);win.document.close();})();">
+                🖼️ アセット確認
+            </a>
+        </div>
+        <p style="font-size:11px; color:#95a5a6; margin-top:15px; text-align:center;">
+            各ボタンをお気に入りバーにドラッグしてインストールしてください。
+        </p>
+    </div>
+
+    <div class="footer">
+        Web Audit Suite v2.3.4 | Developed by @jshutoh-byte
+    </div>
+</div>
+
+</body>
+</html>
