@@ -63,7 +63,12 @@
     * セキュリティリスク（非暗号化通信、過剰iframe等）の嗅ぎ出し（Sniffing）
 
 ---
+このGithubのページをそのまま利用できます。
+ブラウザでこのサイトのURLを直接開くことで、ダウンロード不要で試すことが可能です。
 
+https://jshutoh-byte.github.io/Web-Audit-Suite/
+
+---
 ## 🖋 開発者について
 **@jshutoh-byte (Learning Developer)**
 インフラ（ネットワーク・OS）の基礎知識を持ち、現在はPythonやAIを活用した業務効率化ツールを独学で開発している学習者です。
