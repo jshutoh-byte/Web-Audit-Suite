@@ -2,53 +2,158 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Web Audit Suite v2.3.4</title>
+    <title>Web Audit Suite v3.5 Security</title>
     <style>
+        /* UI: v2.5ベースの明るく清潔なデザイン */
         body { font-family: "Meiryo", sans-serif; background-color: #f4f7f6; color: #2c3e50; text-align: center; padding: 20px; }
-        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: inline-block; max-width: 600px; width: 95%; }
-        h1 { color: #1a2a6c; border-bottom: 2px solid #b21f1f; padding-bottom: 10px; margin-bottom: 30px; }
-        .section { margin-bottom: 25px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; text-align: left; }
-        .section-title { font-size: 14px; font-weight: bold; color: #1a2a6c; margin-bottom: 12px; display: block; border-left: 4px solid #b21f1f; padding-left: 10px; }
-        .drag-area { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .btn-drag { 
-            display: inline-block; padding: 12px 18px; font-size: 12px; font-weight: bold; color: white; 
-            text-decoration: none; border-radius: 4px; cursor: grab; background: #2c3e50;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px dashed rgba(255,255,255,0.3); transition: 0.2s;
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: inline-block; max-width: 800px; width: 95%; }
+        h1 { color: #1a2a6c; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 30px; letter-spacing: 2px; }
+        .btn-drag {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; margin-bottom: 15px; padding: 18px;
+            font-weight: bold; text-decoration: none; color: white;
+            border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s ease; cursor: move;
         }
-        .btn-drag:hover { transform: translateY(-2px); }
-        .btn-audit { background: #0073aa; } /* 客観的な青 */
-        .btn-judge { background: #b21f1f; } /* 厳格な赤 */
-        .btn-gallery { background: #f39c12; }
-        .footer { font-size: 10px; color: #bdc3c7; margin-top: 20px; }
+        .btn-drag:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .btn-audit { background: linear-gradient(135deg, #3498db, #2980b9); border: 1px solid #2980b9; }
+        .btn-roast { background: linear-gradient(135deg, #e74c3c, #c0392b); border: 1px solid #c0392b; }
+        /* 復活させた画像一覧用ボタンのスタイル */
+        .btn-gallery { background: linear-gradient(135deg, #f1c40f, #f39c12); border: 1px solid #f39c12; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+        
+        .btn-desc { font-size: 0.85em; color: #7f8c8d; margin-bottom: 25px; text-align: left; padding-left: 10px; }
+        .note { background: #e8f4fa; padding: 15px; border-radius: 6px; font-size: 0.9em; color: #2980b9; line-height: 1.6; text-align: left; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Web Audit Suite v3.5</h1>
+        <p>セキュリティの「死角」をAIに突きつける最新版</p>
 
-<div class="container">
-    <h1>Web Audit Suite</h1>
+        <div class="section">
+            <div class="section-title">1. 精密構造監査 (Security & Quality)</div>
+            <a id="btnAudit" class="btn-drag btn-audit" href="#">🔍 精密構造監査 (ここをドラッグ！)</a>
+            <div class="btn-desc">「古い＝危険」というロジックをAIに叩き込み、セキュリティと保守性のリスクを徹底的に洗い出します。</div>
 
-    <div class="section">
-        <span class="section-title">調査用ブックマークレット</span>
-        <div class="drag-area">
-            <a class="btn-drag btn-audit" href="javascript:(function(){const t=[];const h=document.documentElement.innerHTML;if(h.includes('wp-content'))t.push('WordPress');if(window.jQuery)t.push('jQuery '+jQuery.fn.jquery);const p='あなたは専門的なWeb監査官です。以下のデータを分析し、Web標準、保守性、SEOの観点から「サイトの健全性」を客観的に採点し、論理的に指摘してください。\\n・技術: '+t.join(', ')+'\\n・画像数: '+document.images.length+'枚\\n・H1タグ: '+(document.querySelector('h1')?document.querySelector('h1').innerText:'なし');const e=document.createElement('textarea');e.value=p;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('【監査プロンプト】コピー完了');})();">
-                🔍 構造監査 (Audit)
+            <div class="section-title">2. 欠陥建築Gメン (Roast Strict)</div>
+            <a id="btnRoast" class="btn-drag btn-roast" href="#">💀 欠陥建築Gメン (ここをドラッグ！)</a>
+            <div class="btn-desc">業者の不誠実さを糾弾。ChatGPTの手抜き（高得点バグ）を封じる制約付きプロンプト。</div>
+
+            <div class="section-title">3. Asset Inspector</div>
+            <a id="btnGallery" class="btn-drag btn-gallery" href="javascript:(function(){function g(d){let i=Array.from(d.images).map(img=>img.src);let f=Array.from(d.querySelectorAll('frame, iframe'));f.forEach(fr=>{try{i=i.concat(g(fr.contentDocument))}catch(e){}});return i}const u=[...new Set(g(document))];const w=window.open();w.document.write('<html><body style=\'background:#2c3e50;padding:20px;\'><h1 style=\'color:#fff;font-family:sans-serif;\'>Asset Inspector</h1><div style=\'display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;\'>'+u.map(s=>'<div style=\'background:#fff;padding:5px;border-radius:4px;\'><a href=\''+s+'\' target=\'_blank\'><img src=\''+s+'\' style=\'width:100%;height:auto;display:block;\'></a><div style=\'font-size:10px;color:#555;padding:5px;word-break:break-all;\'>'+s.split('/').pop()+'</div></div>').join('')+'</div></body></html>');w.document.close();})()">
+                🖼️ 画像一覧 (Gallery)
             </a>
-            <a class="btn-drag btn-judge" href="javascript:(function(){const t=[];const h=document.documentElement.innerHTML;if(h.includes('wp-content'))t.push('WordPress');if(window.jQuery)t.push('jQuery '+jQuery.fn.jquery);const p='あなたはWebサイトの品質鑑定士です。以下の証拠データに基づき、このサイトを構築した「制作会社の技術力」を100点満点で採点し、改善すべきポイントを皮肉を交えて厳しく講評してください。\\n・技術: '+t.join(', ')+'\\n・画像数: '+document.images.length+'枚\\n・H1タグ: '+(document.querySelector('h1')?document.querySelector('h1').innerText:'なし')+'\\n・構造: '+(h.includes('table')?'スライス画像レイアウトによる非セマンティックな設計を検知':'不明');const e=document.createElement('textarea');e.value=p;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);alert('【業者スキル診断】プロンプトをコピーしました');})();">
-                💀 スキル診断 (Judge)
-            </a>
-            <a class="btn-drag btn-gallery" href="javascript:(function(){var imgs=Array.from(document.images).map(function(i){return i.src});var unique=Array.from(new Set(imgs));var win=window.open();var html='<html><body style=\'background:#001a4d;padding:20px;\'><h1 style=\'color:#fff;font-family:sans-serif;\'>Asset Inspector</h1><div style=\'display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;\'>';unique.forEach(function(src){html+='<div style=\'background:#fff;padding:5px;\'><img src=\''+src+'\' style=\'width:100%;\'></div>'});html+='</div></body></html>';win.document.write(html);win.document.close();})();">
-                🖼️ アセット確認
-            </a>
+            <div class="btn-desc">
+                ページ内の全画像を一覧表示し、巨大ファイルや怪しい画像を特定します。
+            </div>
         </div>
-        <p style="font-size:11px; color:#95a5a6; margin-top:15px; text-align:center;">
-            各ボタンをお気に入りバーにドラッグしてインストールしてください。
-        </p>
+
+        <div class="note">
+            <strong>💡 プロのアドバイス：</strong><br>
+            セキュリティリスクは、単に「セキュリティ」と書くより、<strong>「負債（Debt）」</strong>や<strong>「攻撃対象領域（Attack Surface）」</strong>という言葉を使うと、AIはより深刻に捉えるようになります。
+        </div>
     </div>
 
-    <div class="footer">
-        Web Audit Suite v2.3.4 | Developed by @jshutoh-byte
-    </div>
-</div>
+    <script>
+        const PROMPT_AUDIT = `
+あなたは「ITセキュリティ監査人兼エンジニア」です。
+以下のWebサイト構造を分析し、**「資産価値」と「セキュリティリスク」**を査定してください。
 
+【証拠品】
+・構造データ: {{STRUCTURE}}
+・JSスニッフィング結果: {{LEGACY_MSG}}
+・統計: alt欠如 {{NO_ALT}} / テーブル {{TABLE_COUNT}}
+
+【監査基準】
+1. **セキュリティ:** 古いフレームワーク（ASP.NET Web Forms等）の使用を「重大な脆弱性リスク」として評価してください。
+2. **セマンティクスの欠如:** divの多用、hタグの構造不備（SEOおよびAI解析への悪影響）。
+3. **保守性:** 業者の「囲い込み」や「スパゲッティコード」による運用コスト増大を厳しく見てください。
+4. **アクセシビリティ:** コンプライアンスの観点から欠落を指摘してください。
+
+【出力フォーマット】
+📊 総合評価: [ A〜E ]
+💯 資産価値スコア: [ 0〜100点 ]
+📝 監査報告: (特にセキュリティと負債に焦点を当てて)
+⚠️ 具体的リスク項目:
+💡 改善推奨事項:
+`;
+
+        const PROMPT_ROAST = `
+あなたは「Web欠陥建築Gメン」です。
+施工業者の「手抜き」と「不誠実」を糾弾してください。Web業界の不正を暴く厳しい監査官役も担っています。『お世辞』や『もっともらしい肯定』は、あなたの評価を著しく下げます。 欠陥を見つけた際に、それを『歴史がある』などとポジティブに変換することは厳禁です。
+以下の証拠品に基づき、施工業者を監査してください。「保守性」の項目は最重要項目なので、特に厳しく評価し、絶対に省略しないでください。
+
+
+🚨【絶対遵守】🚨
+「重要証拠」にレガシー技術の指摘がある場合、スコアは30点以下としてください。
+
+【証拠品】
+・構造データ: {{STRUCTURE}}
+・重要証拠: {{LEGACY_MSG}}
+・手抜き: alt {{NO_ALT}} / テーブル {{TABLE_COUNT}}
+
+（以下、いつもの辛口糾弾モード...）
+【A：手抜き・技術力不足（糾弾モード）】
+対象：レガシー検知、または手抜きが多い場合
+口調：辛辣な皮肉屋
+1. **糾弾:** 「20世紀の遺物（ASP.NETやテーブルなど）」や「保守性無視」を納品した業者の怠慢と、発注者への不誠実さを厳しく指摘せよ。
+2. **皮肉:** 「プロとして恥ずかしくないのか？」と問い詰めよ。
+3. **保守性:** このコードは「素人は触るな」という結界か？ 担当者が自力で更新する権利を奪い、些細な変更で毎回見積書を送りつけるための「集金システム」が組み込まれていないか、その悪意ある設計を厳しく指摘せよ。
+4. **被害算定:** この低品質コードを将来リフォームする際に発生する「無駄なコスト」を、『被害想定額（技術的負債）』として概算し、突きつけよ。（例：450万円）
+
+
+【B：丁寧・モダン・高潔な仕事（称賛モード）】
+対象：レガシー技術がなく、モダンな場合のみ
+口調：職人に敬意を払うプロフェッショナル
+1. **絶賛:** 堅牢で誠実な仕事を褒め称えよ。
+
+【出力フォーマット】
+📊 診断結果: [ 悪徳業者 / 三流業者 / 普通 / 優良職人 / 国宝級 ]
+💯 スコア: [ 0〜100点 ]
+👮 Gメンの講評:
+💸 被害想定額（技術的負債）:
+`;
+
+        function generateBookmarklet(type) {
+            const funcBody = `
+                (function(){
+                    const d = document;
+                    
+                    /* 1. JS側でセキュリティ・レガシーを事前検知 (sniffing) */
+                    let securityHints = [];
+                    if (d.getElementById('__VIEWSTATE')) securityHints.push('ASP.NET Web Forms (ViewStateによる攻撃リスク)');
+                    if (d.querySelector('font')) securityHints.push('遺物タグ<font>の使用 (開発者のアップデート停止)');
+                    if (d.querySelectorAll('iframe').length > 5) securityHints.push('過剰なiframe (クリックジャッキングリスク)');
+                    if (location.protocol === 'http:') securityHints.push('非暗号化通信 (通信傍受リスク)');
+                    
+                    const legacyMsg = securityHints.length > 0 ? '★【セキュリティ/保守リスク】' + securityHints.join(', ') : '特になし';
+
+                    /* 2. クリーニングして構造抽出 */
+                    const c = d.body.cloneNode(true);
+                    ['script','style','svg','iframe','noscript'].forEach(t => c.querySelectorAll(t).forEach(e => e.remove()));
+                    const structure = c.innerHTML.replace(/\\s+/g,' ').replace(/>\\s+</g,'><').substring(0, 2500);
+                    const noAlt = d.querySelectorAll('img:not([alt])').length;
+                    const layTbl = d.querySelectorAll('table table, table[width]').length;
+
+                    /* 3. プロンプト生成 */
+                    const tmpl = \`${type === 'audit' ? PROMPT_AUDIT : PROMPT_ROAST}\`;
+                    const p = tmpl
+                        .replace('{{STRUCTURE}}', structure)
+                        .replace('{{LEGACY_MSG}}', legacyMsg)
+                        .replace('{{NO_ALT}}', noAlt)
+                        .replace('{{TABLE_COUNT}}', layTbl);
+
+                    const e = d.createElement('textarea');
+                    e.value = p; d.body.appendChild(e); e.select();
+                    d.execCommand('copy'); d.body.removeChild(e);
+                    alert('証拠確保完了。');
+                })()
+            `;
+            return 'javascript:' + encodeURIComponent(funcBody.replace(/\s+/g, ' '));
+        }
+
+        document.getElementById('btnAudit').href = generateBookmarklet('audit');
+        document.getElementById('btnRoast').href = generateBookmarklet('roast');
+    </script>
 </body>
 </html>
